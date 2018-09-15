@@ -62,10 +62,22 @@ class App extends Component {
 
   responseGoogleSuccess(response){
     this.setState({isLoggedIn: true});
+    this.testAPI();
     console.log(this.state);
   }
   responseGoogleFailure(response){
     console.log("cannot log you in");
+  }
+
+  testAPI() {
+    return fetch('/api/ping')
+      .then((response) => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }
 
