@@ -26,3 +26,47 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.login {
+  display: block;
+  text-align:center;
+  margin:auto;
+}
+
+.main{
+  background: url(https://cdn.pixabay.com/photo/2015/06/24/01/15/morning-819362_1280.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.logo{
+
+  display: block;
+  text-align:center;
+  margin:auto;
+  margin-top: 40px;
+}
+
+.description{
+  font-family: 'Pathway Gothic One', sans-serif;
+  /* background-color: white; */
+  color: white;
+  margin: 30px auto;
+  font-size: 20px;
+  width: 300px;
+  text-align: center;
+}
+
+.sidebar{
+  background-color: #DAD934;
+  position: fixed;
+  right: 0px;
+  height: 100%;
+  width: 340px;
+
+}
