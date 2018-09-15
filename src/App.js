@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import GoogleLogin from 'react-google-login';
 import { Link, Switch, Route } from 'react-router-dom'
 import { LinkContainer } from "react-router-bootstrap";
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Button } from 'react-bootstrap';
 import Home from './Home'
 import Profile from './Profile'
 
@@ -21,12 +20,9 @@ class App extends Component {
     return (
       <div>
         {!this.state.isLoggedIn && (
-          <GoogleLogin
-            clientId="671198457660-d5gotcj5u380n416mtgcrj44364affs0.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={this.responseGoogleSuccess}
-            onFailure={this.responseGoogleFailure}>
-          </GoogleLogin>
+          <div>
+            <Button bsStyle="primary" onClick={attemptLogin}>Click to Login</Button>
+          </div>
         )}
         {this.state.isLoggedIn && (
           <div>
@@ -63,22 +59,77 @@ class App extends Component {
   responseGoogleSuccess(response){
     this.setState({isLoggedIn: true});
     this.testAPI();
-    console.log(this.state);
+    console.log(response);
   }
   responseGoogleFailure(response){
     console.log("cannot log you in");
   }
+}
 
-  testAPI() {
-    return fetch('/api/ping')
-      .then((response) => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+function attemptLogin(){
+  const scope = ['https://www.googleapis.com/auth/photoslibrary', 'https://www.googleapis.com/auth/photoslibrary.readonly'];
+  window.gapi.auth.authorize(
+    {
+        'client_id': "671198457660-d5gotcj5u380n416mtgcrj44364affs0.apps.googleusercontent.com",
+        'scope': scope,
+        'immediate': false
+    },
+    handlePhotoApiAuthResult);
+  
+  // return fetch('/auth/google')
+  //   .then((response) => response.json())
+  //   .then(data => {
+  //     console.log(data);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+}
+
+function handlePhotoApiAuthResult(authResult) {
+  if (authResult && !authResult.error) {
+      const oauthToken = authResult.access_token;
+      getAllPhotoGoogleApi();
   }
+}
+
+function getAllPhotoGoogleApi() {
+    window.gapi.client.request({
+    'path': 'https://photoslibrary.googleapis.com/v1/mediaItems:search',
+    'method': 'POST',
+    'body': {
+        "filters": {
+            "mediaTypeFilter": {
+                "mediaTypes": ["PHOTO"]
+            },
+            "contentFilter": {
+              "includedContentCategories": [
+                "FOOD"
+              ]
+            }
+        }
+    }
+  }).then(function (response) {
+    console.log(response);
+    //downloadImage(response.result.mediaItems[0].baseUrl);
+  }, function (reason) {
+    console.log(reason);
+  });
+}
+
+function downloadImage(baseurl){
+  const url = baseurl + "=d";
+  console.log(url);
+
+  window.gapi.client.request({
+    'path': url,
+    'method': 'GET',
+  }).then(function (response) {
+    console.log(response);
+  }, function (reason) {
+    console.log(reason);
+  });
+
 }
 
 export default App;
