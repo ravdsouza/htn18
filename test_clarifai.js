@@ -18,10 +18,10 @@ const app = new Clarifai.App({
 app.models.predict(Clarifai.FOOD_MODEL, "https://samples.clarifai.com/metro-north.jpg").then(
   function(response) {
   	var concepts = response.outputs[0].data.concepts;
-  	var arr = []
+  	var arr = [];
   	for(i = 0; i < concepts.length; i++) {
   		var concept = concepts[i];
-  		if(value > 0.9) {
+  		if(concept.value > 0.9) {
   			arr.push(concept);
   			console.log(concept);
   		}
@@ -31,3 +31,4 @@ app.models.predict(Clarifai.FOOD_MODEL, "https://samples.clarifai.com/metro-nort
     console.error(err);
   }
 );
+
