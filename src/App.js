@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       isLoggedIn: false
     };
-    this.responseGoogle = this.responseGoogle.bind(this);
+    this.responseGoogleSuccess = this.responseGoogleSuccess.bind(this);
+    this.responseGoogleFailure = this.responseGoogleFailure.bind(this);
   }
 
   render() {
@@ -23,8 +24,8 @@ class App extends Component {
           <GoogleLogin
             clientId="671198457660-d5gotcj5u380n416mtgcrj44364affs0.apps.googleusercontent.com"
             buttonText="Login"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseGoogle}>
+            onSuccess={this.responseGoogleSuccess}
+            onFailure={this.responseGoogleFailure}>
           </GoogleLogin>
         )}
         {this.state.isLoggedIn && (
@@ -59,9 +60,12 @@ class App extends Component {
     );
   }
 
-  responseGoogle(response){
+  responseGoogleSuccess(response){
     this.setState({isLoggedIn: true});
     console.log(this.state);
+  }
+  responseGoogleFailure(response){
+    console.log("cannot log you in");
   }
 }
 
