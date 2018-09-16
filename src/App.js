@@ -7,6 +7,8 @@ import Home from './Home'
 import Profile from './Profile'
 import './App.css';
 
+import FirebaseHandler from './firebase_handler';
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -78,6 +80,9 @@ class App extends Component {
   responseGoogleSuccess(response){
     this.setState({isLoggedIn: true});
     console.log(this.state);
+
+    const fbdb = new FirebaseHandler();
+    fbdb.writeData();
   }
   responseGoogleFailure(response){
     console.log("cannot log you in");
