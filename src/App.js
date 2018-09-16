@@ -5,7 +5,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import Home from './Home'
 import Profile from './Profile'
-import Map from './map.js'
 import './App.css';
 
 class App extends Component {
@@ -54,15 +53,12 @@ class App extends Component {
               </Navbar.Header>
               <Navbar.Collapse>
                 <Nav pullRight>
-                <LinkContainer to="/" exact>
-                  <NavItem>Home</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/Profile">
-                  <NavItem>Profile</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/Map">
-                  <NavItem>Friends</NavItem>
-                </LinkContainer>
+                  <LinkContainer to="/" exact>
+                    <NavItem>Home</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/Profile">
+                    <NavItem>Profile</NavItem>
+                  </LinkContainer>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
