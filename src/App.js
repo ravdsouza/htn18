@@ -7,12 +7,14 @@ import Home from './Home'
 import Profile from './Profile'
 import './App.css';
 import ClarifaiHandler from './clarifai_handler'
+import FirebaseHandler from './firebase_handler';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      uniqueId: 0
     };
     this.responseGoogleSuccess = this.responseGoogleSuccess.bind(this);
     this.responseGoogleFailure = this.responseGoogleFailure.bind(this);
@@ -54,18 +56,19 @@ class App extends Component {
               </Navbar.Header>
               <Navbar.Collapse>
                 <Nav pullRight>
-                <LinkContainer to="/" exact>
-                  <NavItem>Home</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/Profile">
-                  <NavItem>Profile</NavItem>
-                </LinkContainer>
+                  <LinkContainer to="/" exact>
+                    <NavItem>Home</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/Profile">
+                    <NavItem>Profile</NavItem>
+                  </LinkContainer>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
             <Switch>
-              <Route exact path="/" component={Home}></Route>
+              <Route exact path="/" render={() => <Home uniqueId={this.state.uniqueId} />}></Route>
               <Route path="/Profile" component={Profile}></Route>
+              <Route path="/map" component={Map}></Route>
             </Switch>
           </div>
 
@@ -76,7 +79,7 @@ class App extends Component {
   }
 
   responseGoogleSuccess(response){
-    this.setState({isLoggedIn: true});
+    this.setState({isLoggedIn: true, uniqueId: response.googleId});
     console.log(this.state);
     const cl = new ClarifaiHandler();
     cl.generateFakeInfo();
