@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Map from './Map'
 import FirebaseHandler from './firebase_handler';
+import PlacesHandler from './places_handler'
 
 class Home extends Component {
   constructor(props){
@@ -20,6 +21,8 @@ class Home extends Component {
 
   componentWillMount(){
     this.delayedShowMarker();
+    const pl = new PlacesHandler();
+    pl.callApi();
   }
 
   delayedShowMarker = () => {
