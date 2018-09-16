@@ -13,6 +13,7 @@ class Home extends Component {
         currentLatLng: {
           lng: 43.5,
           lat: -80.55,
+          key: 1
         },
         zoom: 20
     }
@@ -32,7 +33,7 @@ class Home extends Component {
   render() {
     return (
       <Map
-        currentLocation={this.state.currentLatLng}
+        currentLocations={[this.state.currentLatLng, {lat: 43.255203, lng: -79.843826, key: 2}, {lng: -79.640579, lat: 43.595310, key: 3}]}
         isMarkerShown={this.state.isMarkerShown}
       >
       </Map>

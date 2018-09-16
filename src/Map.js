@@ -16,7 +16,9 @@ const Map = compose(
       defaultZoom={8}
       defaultCenter={{ lat: 43.5, lng: -80.55 }}
     >
-        {(props.isMarkerShown && props.currentLocation.lat !== 43.5) && <Marker position={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }}/> }
+        {(props.isMarkerShown) &&
+          props.currentLocations.map((currentLocation) => <Marker key={currentLocation.key} position={{ lat: currentLocation.lat, lng: currentLocation.lng }}/>) 
+        }
     </GoogleMap>
   )
   
