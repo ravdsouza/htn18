@@ -2,10 +2,16 @@ class FirebaseHandler{
   constructor(){
       this.database = window.firebase.database();
   }
-  writeData() {
+  writeTest() {
     this.database.ref('testUser').set({
       username: "testName",
       email: "testEmail"
+    });
+  }
+  writeData(id, latitude, longitude) {
+    this.database.ref(id).set({
+      lat: latitude,
+      lng: longitude
     });
   }
 }
