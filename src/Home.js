@@ -9,13 +9,16 @@ class Home extends Component {
     console.log(props);
     this.getLocation = this.getLocation.bind(this);
     this.setLocationCoords = this.setLocationCoords.bind(this);
+    this.saveMarkers = this.saveMarkers.bind(this);
     this.state = {
       //start at e5
         currentLatLng: {
           lng: 43.5,
           lat: -80.55,
+          id: 'me'
         },
-        zoom: 20
+        zoom: 20,
+        fbLatLng: []
     }
   }
 
@@ -27,20 +30,36 @@ class Home extends Component {
 
   delayedShowMarker = () => {
     setTimeout(() => {
-      this.getLocation()
+      this.getLocation();
+      const fbdb = new FirebaseHandler();
+      fbdb.readData(this.props.uniqueId, this.saveMarkers);
       this.setState({ isMarkerShown: true })
     }, 20)
   }
 
   render() {
+    const currentLoc = [this.state.currentLatLng].concat(this.state.fbLatLng);
     return (
       <Map
-        currentLocation={this.state.currentLatLng}
+        currentLocations={currentLoc}
         isMarkerShown={this.state.isMarkerShown}
       >
       </Map>
     );
   }
+
+  saveMarkers(markers){
+    const ids = Object.keys(markers);
+    const fbLatLngArr = [];
+    ids.forEach(function(ident){
+      const fbRecord = {id: ident, lng: markers[ident].lng, lat: markers[ident].lat, name: markers[ident].name};
+      fbLatLngArr.push(fbRecord);
+    });
+    this.setState(prevState => ({
+      fbLatLng: fbLatLngArr
+    }));
+  }
+
   getLocation(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.setLocationCoords);
@@ -51,17 +70,14 @@ class Home extends Component {
    }
 
    setLocationCoords(position){
-     console.log(position.coords);
-     console.log(position);
     this.setState(prevState => ({
       currentLatLng: {
           ...prevState.currentLatLng,
           lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lng: position.coords.longitude,
       }
   }));
   const fbdb = new FirebaseHandler();
-  //fbdb.writeTest();
   fbdb.writeData(this.props.uniqueId, position.coords.latitude, position.coords.longitude);
    }
 }
