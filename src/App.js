@@ -6,7 +6,6 @@ import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import Home from './Home'
 import Profile from './Profile'
 import './App.css';
-import upick from './upick.jpg';
 
 class App extends Component {
   constructor(props){
