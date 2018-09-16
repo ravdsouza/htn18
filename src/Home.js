@@ -31,7 +31,9 @@ class Home extends Component {
   }
 
   render() {
+    const fbdb = new FirebaseHandler();
     return (
+      console.log(fbdb.readData()),
       <Map
         currentLocations={[this.state.currentLatLng, {lat: 43.255203, lng: -79.843826, key: 2}, {lng: -79.640579, lat: 43.595310, key: 3}]}
         isMarkerShown={this.state.isMarkerShown}
@@ -49,8 +51,6 @@ class Home extends Component {
    }
 
    setLocationCoords(position){
-     console.log(position.coords);
-     console.log(position);
     this.setState(prevState => ({
       currentLatLng: {
           ...prevState.currentLatLng,
@@ -59,7 +59,6 @@ class Home extends Component {
       }
   }));
   const fbdb = new FirebaseHandler();
-  //fbdb.writeTest();
   fbdb.writeData(this.props.uniqueId, position.coords.latitude, position.coords.longitude);
    }
 }

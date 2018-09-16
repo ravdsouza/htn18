@@ -19,5 +19,10 @@ class FirebaseHandler{
       }
     });
   }
+
+  readData() {
+    var data = this.database.ref().once("value").then();
+    return data;
+  }
 }
 export default FirebaseHandler;
