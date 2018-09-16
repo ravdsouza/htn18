@@ -6,6 +6,7 @@ import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import Home from './Home'
 import Profile from './Profile'
 import './App.css';
+import ClarifaiHandler from './clarifai_handler'
 
 class App extends Component {
   constructor(props){
@@ -77,6 +78,10 @@ class App extends Component {
   responseGoogleSuccess(response){
     this.setState({isLoggedIn: true});
     console.log(this.state);
+    const cl = new ClarifaiHandler();
+    cl.generateFakeInfo();
+    let score = cl.searchFood();
+    console.log(score);
   }
   responseGoogleFailure(response){
     console.log("cannot log you in");
