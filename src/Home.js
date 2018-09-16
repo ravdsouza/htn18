@@ -8,13 +8,15 @@ class Home extends Component {
     console.log(props);
     this.getLocation = this.getLocation.bind(this);
     this.setLocationCoords = this.setLocationCoords.bind(this);
+    this.clickMarker = this.clickMarker.bind(this);
     this.state = {
       //start at e5
         currentLatLng: {
           lng: 43.5,
           lat: -80.55,
         },
-        zoom: 20
+        zoom: 20,
+        showMapUI: false
     }
   }
 
@@ -31,12 +33,23 @@ class Home extends Component {
 
   render() {
     return (
-      <Map
-        currentLocation={this.state.currentLatLng}
-        isMarkerShown={this.state.isMarkerShown}
-      >
-      </Map>
+      <div>
+        <Map
+          currentLocation={this.state.currentLatLng}
+          isMarkerShown={this.state.isMarkerShown}
+          onClickMarker={this.clickMarker}
+        >
+        </Map>
+        {this.state.showMapUI && (
+          <div>
+            <p>I clicked the map</p>
+          </div>
+        )}
+      </div>
     );
+  }
+  clickMarker(){
+      this.setState({ showMapUI: true })
   }
   getLocation(){
     if (navigator.geolocation) {
