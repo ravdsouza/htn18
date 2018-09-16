@@ -25,7 +25,7 @@ class App extends Component {
             <div class="sidebar">
               <div class="logo"><img src={require('./media/upick.png')} />
               </div>
-              <div class="description"><p>Decide where you want to eat in the click of a button. We will find the right restaurant based on your day to day meal-purchases!</p>
+              <div class="description"><p>Decide where you want to eat in the click of a button. We will find the right restaurant based on your day to day meal purchases!</p>
               </div>
               <div class="login">
                 <GoogleLogin
