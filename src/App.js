@@ -7,7 +7,6 @@ import Home from './Home'
 import Profile from './Profile'
 import Map from './map.js'
 import './App.css';
-import upick from './upick.jpg';
 
 class App extends Component {
   constructor(props){
