@@ -20,9 +20,17 @@ class FirebaseHandler{
     });
   }
 
-  readData() {
-    var data = this.database.ref().once("value").then();
-    return data;
+  readData(id, callback) {
+    this.database.ref().once("value").then((snapshot)=> {
+      if (snapshot.exists()) {
+        const returnData = snapshot.val();
+        //we don't need your data
+        delete returnData[id];
+        callback(returnData);
+      } else{
+        console.log('no data')
+      }
+    });
   }
 }
 export default FirebaseHandler;
