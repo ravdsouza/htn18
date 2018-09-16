@@ -37,8 +37,6 @@ class Home extends Component {
   }
   getLocation(){
     if (navigator.geolocation) {
-        console.log("hiya");
-        const currentScope = this;
         navigator.geolocation.getCurrentPosition(this.setLocationCoords);
     } else {
         // Browser doesn't support Geolocation
