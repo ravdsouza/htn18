@@ -20,6 +20,35 @@ class FirebaseHandler{
     });
   }
 
+  writeFoodScores(id, italian, japanese, chinese, mexican, indian, american, greek){
+    console.log(italian);
+    this.database.ref(id).once("value").then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log("exists"); 
+        this.database.ref(id).update({
+          italian: italian,
+          japanese: japanese,
+          chinese: chinese,
+          mexican: mexican, 
+          indian: indian,
+          american: american,
+          greek: greek
+        });
+      } else {
+        console.log("doesn't exist"); 
+        this.database.ref(id).set({
+          italian: italian,
+          japanese: japanese,
+          chinese: chinese,
+          mexican: mexican, 
+          indian: indian,
+          american: american,
+          greek: greek
+        });
+      }
+    });
+  }
+
   readData(id, callback) {
     this.database.ref().once("value").then((snapshot)=> {
       if (snapshot.exists()) {
