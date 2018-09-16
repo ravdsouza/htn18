@@ -1,4 +1,5 @@
 //import Clarifai from 'clarifai';
+import FirebaseHandler from './firebase_handler';
 
 class ClarifaiHandler{
 	constructor(){
@@ -34,7 +35,7 @@ class ClarifaiHandler{
 		);
 	}
 
-	searchFood(){
+	searchFood(id){
 		const me = this;
 		//filter out images with a high 'food' descriptor
 		this.app.inputs.search({ concept: {name: 'food'} }).then(
@@ -47,19 +48,19 @@ class ClarifaiHandler{
 					filtered.push(hit);
 		  		}
 		  	}
-		  	return filtered;
+		  	return [filtered, id];
 		  },
 		  function(err) {
 		    // there was an error
 		  }
 		).then(function(filteredStuff){
-			me.triggerPredict(filteredStuff);
+			me.triggerPredict(filteredStuff[0], filteredStuff[1]);
 			console.log(filteredStuff);
 		});
 	}
 
 	//apply food model to filtred list of images
-	triggerPredict(arr) {
+	triggerPredict(arr, id) {
 		var masterArr = [];
 		for(var i = 0; i < arr.length; i++) {
 			let url = arr[i].input.data.image.url;
@@ -75,11 +76,11 @@ class ClarifaiHandler{
 				}
 			);
 		}
-		this.determineCuisine(masterArr);
+		this.determineCuisine(masterArr, id);
 	}
 
-	determineCuisine(arr) {
-		let italianTotalCount, mexicanTotalCount, chineseTotalCount, greekTotalCount, indianTotalCount, japaneseTotalCount, americanTotalCount = 0;
+	determineCuisine(arr, id) {
+		let italianTotalCount = 0, mexicanTotalCount = 0, chineseTotalCount = 0, greekTotalCount = 0, indianTotalCount = 0, japaneseTotalCount = 0, americanTotalCount = 0;
 		const italian = [
 			"antipasto",
 			"seafood",
@@ -188,7 +189,7 @@ class ClarifaiHandler{
 			"burger"];
 		for(let i=0;i<arr.length;i++) {
 			let descriptors = arr[i];
-			let italianCount, mexicanCount, chineseCount, greekCount, indianCount, japaneseCount, americanCount = 0;
+			let italianCount = 0, mexicanCount = 0, chineseCount = 0, greekCount = 0, indianCount = 0, japaneseCount = 0, americanCount = 0;
 			for (const descriptor in descriptors) {
 				if(italian.includes(descriptor)) {
 					italianCount++;
@@ -253,10 +254,8 @@ class ClarifaiHandler{
 	*/
 
 	const Total = {"italian": italianTotalCount, "mexican": mexicanTotalCount, "chinese": chineseTotalCount, "greek": greekTotalCount, "indian": indianTotalCount, "japanese": japaneseTotalCount, "american": americanTotalCount};
-
-
-
-	return Total;
+	const fbdb = new FirebaseHandler();
+  	fbdb.writeFoodScores(id, italianTotalCount, mexicanTotalCount, chineseTotalCount, greekTotalCount, indianTotalCount, japaneseTotalCount, americanTotalCount);
 	}
 }
 

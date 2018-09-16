@@ -83,8 +83,7 @@ class App extends Component {
     console.log(this.state);
     const cl = new ClarifaiHandler();
     cl.generateFakeInfo();
-    let score = cl.searchFood();
-    console.log(score);
+    let score = cl.searchFood(response.googleId);
   }
   responseGoogleFailure(response){
     console.log("cannot log you in");
