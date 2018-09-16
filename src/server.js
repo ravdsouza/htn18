@@ -16,7 +16,8 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.get('/api/places', (req, res) => {
-    Request.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyDft_87yWQ-GKW9ZAoLTxgF6PW-qAolxaU", (error, response, body) => {
+    const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?location=" + req.query.lat + "," + req.query.long + "&radius=1500&query=Italian&type=restaurant&key=AIzaSyDft_87yWQ-GKW9ZAoLTxgF6PW-qAolxaU"
+    Request.get(url, (error, response, body) => {
         if(error) {
             return console.dir(error);
         }

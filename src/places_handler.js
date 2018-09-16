@@ -1,6 +1,8 @@
 class PlacesHandler{
-    callApi(){
-        fetch('/api/places') // Call the fetch function passing the url of the API as a parameter
+    callApi(lat, long){
+        let url = '/api/places?' + 'lat=' + String(lat) + '&long=' + String(long);
+
+        fetch(url) // Call the fetch function passing the url of the API as a parameter
             .then(res => res.json())
             .then(data => {
                 console.log(data);

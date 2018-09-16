@@ -22,7 +22,7 @@ class Home extends Component {
   componentWillMount(){
     this.delayedShowMarker();
     const pl = new PlacesHandler();
-    pl.callApi();
+    pl.callApi(43.5, -80.55);
   }
 
   delayedShowMarker = () => {
