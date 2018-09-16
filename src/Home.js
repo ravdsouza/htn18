@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Map from './Map'
 import FirebaseHandler from './firebase_handler';
+import './mapUI.css';
+import './rotate.css';
 
 class Home extends Component {
   constructor(props){
@@ -33,19 +35,41 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <Map
-          currentLocation={this.state.currentLatLng}
-          isMarkerShown={this.state.isMarkerShown}
-          onClickMarker={this.clickMarker}
-        >
-        </Map>
-        {this.state.showMapUI && (
-          <div>
-            <p>I clicked the map</p>
-          </div>
-        )}
-      </div>
+        <div class="body_main">
+          <Map
+            currentLocation={this.state.currentLatLng}
+            isMarkerShown={this.state.isMarkerShown}
+            onClickMarker={this.clickMarker}
+          >
+          </Map>
+          {this.state.showMapUI && (
+            <div class = "main_UI">
+              <div class="personal">
+                <div class="header">Heather DSouza</div>
+                <ul>
+                  <li><span class= "cuisine">Italian</span></li>
+                  <li><span class= "cuisine">Indian</span></li>
+                  <li><span class= "cuisine">Chinese</span></li>
+                </ul>
+              </div>
+              <div class = "blue_arrow">
+                <img id="blue_arrow" src={require("./media/arrow.png")} />
+              </div>
+
+              <div class = "meal_setup">
+              <div class="header">Set up a meal with Heather!</div>
+              <form id="signup">
+                <label for="price">Price</label>
+                <input id="price" />
+                <label for="radius">Distance (km)</label>
+                <input id="radius" />
+                <label for="D&T">Date & Time</label>
+                <input id="D&T" />
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
     );
   }
   clickMarker(){

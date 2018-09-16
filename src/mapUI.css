@@ -1,0 +1,72 @@
+/* .main_UI{
+  background-color: #E4E4D4;
+} */
+
+.body_main{
+  overflow: hidden;
+  background-color: #E4E4D4;
+  margin:0;
+  display: block;
+  padding-bottom: 20px ;
+}
+
+.personal{
+  float: left;
+  width: 27%;
+  color:white;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.cuisine{
+  display: inline-block;
+
+  background-color: #AB2222;
+  border-radius: 35px;
+  text-align: center;
+  margin: 5px -20px;
+  padding: 20px 0px;
+  width:70%;
+  vertical-align: middle;
+}
+
+.header{
+  display: inline-block;
+  font-size: 24pt;
+  color: black;
+  font-weight: 400;
+  margin: 20px 58px;
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
+#blue_arrow{
+  transform: rotate(90deg);
+  float: left;
+  position: relative;
+  top: 160px;
+  left: -110px;
+  width:200px;
+  height:auto;
+}
+
+#setup_prompt {
+  font-size: 24pt;
+}
+
+#signup input{
+  display:block;
+}
+
+.meal_setup{
+  text-align: center;
+  float: left;
+  width: 400px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 14pt;
+}
+
+
+ul{
+  list-style: none;
+}
